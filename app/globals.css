@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #de7c5a;
+  --foreground: #4a050e;
+  --surface: #f6d2b4;
+  --surface-strong: #b10f2e;
+  --surface-strong-hover: #ca1a3a;
+  --surface-strong-pressed: #8f0820;
+  --surface-muted: #8d0f26;
+  --outline: #570000;
+  --highlight: #ffd8b0;
+  --shadow: rgba(87, 0, 0, 0.28);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 227, 198, 0.28), transparent 30%),
+    linear-gradient(180deg, #e98b65 0%, var(--background) 45%, #d86f4d 100%);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(177, 15, 46, 0.24);
+  color: var(--outline);
+}
+
+@keyframes answerReveal {
+  0% {
+    transform: scale(0.96);
+    filter: brightness(0.94);
+  }
+
+  55% {
+    transform: scale(1.02);
+    filter: brightness(1.08);
+  }
+
+  100% {
+    transform: scale(0.985);
+    filter: brightness(1);
+  }
 }
