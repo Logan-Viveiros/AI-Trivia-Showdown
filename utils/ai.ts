@@ -33,7 +33,6 @@ export async function promptQuestions(prompt: string, count: number): Promise<Qu
         }
 
         const data = await response.json();
-        console.log(data);
         return data.questions as Question[];
     } catch (error) {
         console.error("Error generating questions:", error);
