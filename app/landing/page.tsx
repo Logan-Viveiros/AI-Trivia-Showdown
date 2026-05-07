@@ -29,7 +29,7 @@ export default function LandingHomePage() {
 
           <div className={styles.heroActions}>
             <Link href="/landing/teaser" className={styles.primaryButton}>
-              Watch Demo Page
+              Demo Page
             </Link>
             <Link href="/landing/about" className={styles.secondaryButton}>
               Learn About the Project

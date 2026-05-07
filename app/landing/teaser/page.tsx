@@ -1,56 +1,87 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import styles from "../landing.module.css";
 import { teaserBeats } from "../landing-content";
+import GamePlayer from "@/games/gamePlayer";
+import { games } from "@/games";
+import { demoQuiz } from "@/quizzes/demo-quiz";
 
-export const metadata: Metadata = {
-  title: "Teaser Demo | AI Trivia Showdown",
-  description:
-    "A curated teaser page for AI Trivia Showdown that maps out the best two-to-three minute launch demo.",
-};
+// Note: Metadata is not supported in client components
 
 export default function TeaserPage() {
+  const [showingDemo, setShowingDemo] = useState(false);
+
+  const demoConfig = {
+    endCondition: "score" as const,
+    endValue: 3, // Play one question for demo
+  };
+
+  if (showingDemo) {
+    return (
+      <div className="relative min-h-screen">
+        <button
+          onClick={() => setShowingDemo(false)}
+          className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-black/70 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
+        >
+          Close Demo
+        </button>
+        <GamePlayer
+          quiz={demoQuiz}
+          game={games.classic.game}
+          config={demoConfig}
+          quizId="demo-general"
+          gameType="classic"
+          demo={true}
+          onDemoEnd={() => setShowingDemo(false)}
+        />
+      </div>
+    );
+  }
+
   return (
     <main className={styles.contentStack}>
       <section className={styles.sectionBlock}>
         <div className={styles.sectionHeading}>
-          <p className={styles.sectionLabel}>Teaser Demo</p>
-          <h1 className={styles.pageTitle}>A trailer, not the full movie.</h1>
+          <p className={styles.sectionLabel}>Quick Demo</p>
+          <h1 className={styles.pageTitle}>Try it for yourself.</h1>
           <p className={styles.pageIntro}>
-            The goal of this page is to showcase the sharpest highlights of AI
-            Trivia Showdown in a short, exciting sequence. A strong teaser
-            should prove the concept quickly and leave viewers wanting more.
+            Get a taste of AI Trivia Showdown with an interactive demo. Answer one
+            quick question to experience the excitement, then dive into the full game
+            with unlimited quizzes, custom challenges, and multiplayer battles.
           </p>
         </div>
 
         <div className={styles.demoPanel}>
           <div>
-            <h3>Suggested 2-minute structure</h3>
+            <h3>In this demo, you'll:</h3>
             <ol className={styles.demoSteps}>
-              <li>Open with the home screen and establish the game-show energy.</li>
-              <li>Play one short round so viewers see pacing, questions, and feedback.</li>
-              <li>End by revealing custom quiz creation and future replay value.</li>
+              <li>Experience the game-show energy and fast-paced gameplay.</li>
+              <li>Answer a question and see instant feedback.</li>
+              <li>Discover what's waiting for you in the full version.</li>
             </ol>
           </div>
 
           <div className={styles.demoCallout}>
-            <p className={styles.demoBadge}>Best CTA</p>
+            <p className={styles.demoBadge}>Ready?</p>
             <p>
-              This page works whether your final teaser is a narrated screen
-              recording or an interactive preview. The important part is that it
-              feels curated.
+              Play this quick demo to get a feel for the intensity and fun of
+              AI Trivia Showdown. The full game has much more in store for you.
             </p>
-            <Link href="/play" className={styles.tertiaryButton}>
-              Launch Gameplay
-            </Link>
+            <button
+              onClick={() => setShowingDemo(true)}
+              className={styles.tertiaryButton}
+            >
+              Play Demo
+            </button>
           </div>
         </div>
       </section>
 
       <section className={styles.sectionBlock}>
         <div className={styles.sectionHeading}>
-          <p className={styles.sectionLabel}>Demo Beats</p>
-          <h2>The teaser should move fast and showcase only the strongest moments.</h2>
+          <p className={styles.sectionLabel}>What's Included</p>
+          <h2>There's so much more waiting in the full game.</h2>
         </div>
 
         <div className={styles.momentGrid}>

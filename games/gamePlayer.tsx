@@ -69,7 +69,7 @@ function getAnswerState(
   };
 }
 
-export default function Game({ quiz, game, config, quizId, gameType }: { quiz: Quiz, game: GameAPI, config: GameConfig, quizId: string, gameType: string }) {
+export default function Game({ quiz, game, config, quizId, gameType, demo, onDemoEnd }: { quiz: Quiz, game: GameAPI, config: GameConfig, quizId: string, gameType: string, demo: boolean, onDemoEnd?: () => void }) {
   const router = useRouter();
 
   const [state, setState] = useState(() => game.initialize(config));
@@ -89,9 +89,13 @@ export default function Game({ quiz, game, config, quizId, gameType }: { quiz: Q
       (config.endCondition === "time" && elapsedSeconds >= config.endValue);
 
     if (isGameOver) {
-      router.push(`/play/finish?quiz=${quizId}&gameType=${gameType}&score=${state.score}`);
+      if (demo && onDemoEnd) {
+        onDemoEnd();
+      } else {
+        router.push(`/play/finish?quiz=${quizId}&gameType=${gameType}&score=${state.score}`);
+      }
     }
-  }, [state.gameOver, state.score, elapsedSeconds, config, quizId, gameType, router]);
+  }, [state.gameOver, state.score, elapsedSeconds, config, quizId, gameType, router, demo, onDemoEnd]);
 
   // Time tracking effect
   useEffect(() => {

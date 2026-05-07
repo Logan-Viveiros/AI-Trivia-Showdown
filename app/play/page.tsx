@@ -37,7 +37,7 @@ function PlayContent() {
   };
 
   return selectedQuiz ? (
-    <Game quiz={selectedQuiz} game={games.classic.game} config={{ endCondition, endValue }} quizId={quizId} gameType={gameType} />
+    <Game quiz={selectedQuiz} game={games.classic.game} config={{ endCondition, endValue }} quizId={quizId} gameType={gameType} demo={false} />
   ) : null;
   // return <ClassicQuiz quiz={selectedQuiz} />;
 }

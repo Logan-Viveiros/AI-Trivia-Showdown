@@ -25,14 +25,12 @@ export default function DeveloperPage() {
 
         <div className={styles.developerGrid}>
           <article className={styles.portraitCard}>
-            <div className={styles.portraitPlaceholder} aria-hidden="true">
+            {/* <div className={styles.portraitPlaceholder} aria-hidden="true">
               <div className={styles.portraitHalo} />
               <div className={styles.portraitHead} />
               <div className={styles.portraitBody} />
-            </div>
-            <p className={styles.portraitCaption}>
-              Portfolio-style developer portrait placeholder for the final launch site.
-            </p>
+            </div> */}
+            <img src="/guy.png" alt="Developer portrait" />
           </article>
 
           <article className={styles.checklistCard}>
