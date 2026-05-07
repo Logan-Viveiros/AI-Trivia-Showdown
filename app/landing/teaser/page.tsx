@@ -1,16 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../landing.module.css";
 import { teaserBeats } from "../landing-content";
 import GamePlayer from "@/games/gamePlayer";
 import { games } from "@/games";
-import { demoQuiz } from "@/quizzes/demo-quiz";
+import { Quiz } from "@/quizzes/quiz";
+import { doc, getDoc } from "firebase/firestore";
+import { quizzesCollection } from "@/utils/firebase.browser";
 
 // Note: Metadata is not supported in client components
 
 export default function TeaserPage() {
   const [showingDemo, setShowingDemo] = useState(false);
+  const [demoQuiz, setSelectedQuiz] = useState<Quiz>(null as unknown as Quiz);
+
+  useEffect(() => {
+    loadSelectedQuiz();
+  }, []);
+
+  const loadSelectedQuiz = async () => {
+    const quiz = await getDoc(doc(quizzesCollection, "Yb9UzhXds9oJXIWG911q")).then((doc) => {
+      return doc.exists() ? { id: doc.id, ...doc.data() } : null;
+    });
+    setSelectedQuiz(quiz as Quiz);
+  };
 
   const demoConfig = {
     endCondition: "score" as const,

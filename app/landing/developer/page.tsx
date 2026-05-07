@@ -34,7 +34,7 @@ export default function DeveloperPage() {
           </article>
 
           <article className={styles.checklistCard}>
-            <h3>What this developer focused on</h3>
+            <h3>Developer's Previous Skills</h3>
             <ul className={styles.checklist}>
               {developerHighlights.map((highlight) => (
                 <li key={highlight}>{highlight}</li>
